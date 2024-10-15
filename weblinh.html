@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doublelinh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #003f5c;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('pic 18.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        #welcome {
+            font-size: 60px;
+            color: rgba(0, 0, 0, 1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            z-index: 1;
+        }
+        
+        #homepage {
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+        h1 {
+            color: #003f5c;
+            font-size: 64px;
+            margin-top: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .container {
+            margin-top: 50px;
+            display: flex;
+            justify-content:center;
+            flex-wrap: wrap;
+            gap: 120px;
+        }
+        .student {
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px dashed rgb(0, 172, 193);
+            border-radius: 10px;
+            transition: transform 0.2s ease, opacity 1s ease-in-out;
+            transform: scale(0.9);
+            width: 300px;
+        }
+        .student img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #00acc1;
+            transition: transform 0.3s ease-in-out;
+        }       
+        .student img:hover {
+            transform: scale(1.1);
+        }
+        .student:hover {
+            transform: scale(1.1);
+        }
+        a {
+            text-decoration: none;
+            color: #003f5c;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .student button {
+            margin-bottom: 10px;
+            margin-top: auto;
+            max-width: fit-content;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #00acc1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .student button:hover {
+            background-color: #007c91;
+        }
+        .student-details {
+            display: none;
+            margin: 20px auto;
+            padding: 30px;
+            border: 1px solid #00acc1;
+            border-radius: 10px;
+            background-color: rgb(227, 218, 182,0.85);
+            color: #003f5c;
+            max-width: 600px;
+            text-align: left;
+            transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-height: 0;
+        }
+        .student-details.show {
+            display: block;
+            max-height: 1000px; /* Arbitrary large value to ensure full height */
+        }
+        .student-details h3 {
+            margin-top: 0;
+            font-size: 28px;
+            color: #003f5c;
+            font-weight: bold;
+        }
+        .student-details ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .student-details li {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        /* New styling for additional images */
+        .additional-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+            padding: 20px;
+            gap: 20px;
+        }
+    
+        .additional-images img {
+            width: 300px; /* Increased size */
+            height: auto; /* Maintain aspect ratio */
+            margin: 20px;
+            border: 3px solid #00acc1; /* Thicker border for a more prominent look */
+            opacity: 0.9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+            object-fit: cover;
+        }
+        .additional-images img:hover {
+            transform: scale(1.1); /* Slight zoom effect */
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); /* Enhance the shadow on hover */
+        }
+    
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .student {
+                width: 80%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('welcome').style.opacity = '0';
+                document.getElementById('welcome').style.transform = 'translate(-50%, -50%) scale(0.7)';
+                setTimeout(function() {
+                    document.getElementById('welcome').style.display = 'none';
+                    document.getElementById('homepage').style.display = 'block';
+                    setTimeout(function() {
+                        document.getElementById('homepage').style.opacity = '1';
+                        const students = document.querySelectorAll('.student');
+                        students.forEach((student) => {
+                            student.style.opacity = '1';
+                            student.style.transform = 'scale(1)';
+                        });
+                    }, 100);
+                }, 1000);
+            }, 3000);
+        };
+    
+        function showDetails(studentId) {
+        const allDetails = document.querySelectorAll('.student-details');
+        const details = document.getElementById(studentId);
+        const button = document.querySelector(`button[onclick="showDetails('${studentId}')"]`);
+
+        if (details.classList.contains('show')) {
+            details.style.opacity = '0';
+            setTimeout(() => {
+                details.classList.remove('show');
+                button.textContent = 'Show Details';
+            }, 500); // Match the transition duration
+        } else {
+            allDetails.forEach((detail) => {
+                if (detail.id !== studentId) {
+                    detail.classList.remove('show');
+                    detail.style.opacity = '0';
+                    const otherButton = document.querySelector(`button[onclick="showDetails('${detail.id}')"]`);
+                    if (otherButton) {
+                        otherButton.textContent = 'Show Details';
+                    }
+                }
+            });
+
+            details.classList.add('show');
+            setTimeout(() => {
+                details.style.opacity = '1';
+                details.scrollIntoView({ behavior: 'smooth' });
+                button.textContent = 'Close';
+            }, 10);
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="welcome">
+        WELCOME TO OUR HOMEPAGE
+    </div>
+
+    <div id="homepage">
+        <h1>Doublelinh</h1>
+        
+                <div class="container">
+            <!-- Student 1 -->
+            <div class="student">
+                <a href="javascript:void(0);" onclick="showDetails('student1-details')">
+                    <img src="pic 6 - ldl.jpg" alt="Lê Diệu Linh Photo">
+                    <h2>Lê Diệu Linh</h2>
+                </a>
+                <button onclick="showDetails('student1-details')">Show Details</button>
+            </div>
+            <!-- Student 2 -->
+            <div class="student">
+                <a href="javascript:void(0);" onclick="showDetails('student2-details')">
+                    <img src="pic 2 - ndl.jpg" alt="Nguyễn Diệu Linh Photo">
+                    <h2>Nguyễn Diệu Linh</h2>
+                </a>
+                <button onclick="showDetails('student2-details')">Show Details</button>
+            </div>
+        </div>
+
+        <!-- Student 1 Details -->
+        <div id="student1-details" class="student-details">
+            <h3>Lê Diệu Linh</h3>
+            <p><strong>Thông tin cá nhân:</strong></p>
+            <ul>
+                <li>D.O.B: 02-08-2007</li>
+                <li>Học sinh lớp 12 Sinh trường THPT Chuyên Đại học Sư phạm</li>
+                <li>Thành tích: 8.5 IELTS 😋</li>
+            </ul>
+            <p><strong>Chia sẻ:</strong></p>
+            <p>Đối với mình, Chuyên Sư phạm không chỉ là một mái trường, mà còn là một ngôi nhà thứ hai. Trong suốt quãng thời gian ở đây, mình đã có rất nhiều kỷ niệm đẹp, cũng như nhiều kinh nghiệm và bài học quý giá. Đây chính là nơi đã chắp cánh ước mơ cho mình, và chắc chắn sẽ trở thành một điểm tựa vững chắc cho tương lai 😋</p>
+        </div>
+
+        <!-- Student 2 Details -->
+        <div id="student2-details" class="student-details">
+            <h3>Nguyễn Diệu Linh</h3>
+            <p><strong>Thông tin cá nhân:</strong></p>
+            <ul>
+                <li>D.O.B: 15-03-2007</li>
+                <li>Học sinh lớp 12 Sinh trường THPT Chuyên Đại học Sư phạm</li>
+                <li>Thành tích: Giải Khuyến khích môn Sinh học trong kỳ thi HSG Quốc gia 😋</li>
+            </ul>
+            <p><strong>Chia sẻ:</strong></p>
+            <p>Rất vui vì các bạn siu cuti, hoà đồng. Trg tổ chức rất nhiều chuyến đi chơi giúp xả stress và để lại nhiều kỉ niệm đẹp. Hầu hết tgl10-11 là dự tuyển và đội tuyển :)), khá áp lực nhưng cx học thêm nhiều kinh nghiệm và kĩ năng, và đi chơi nhiều nữa 😋</p>
+        </div>
+
+        <!-- Additional Images Section -->
+        <div class="additional-images">
+            <img src="pic 1.jpg" alt="Additional Image 1">
+            <img src="pic 3.jpg" alt="Additional Image 2">
+            <img src="pic 5.jpg" alt="Additional Image 3">
+            <img src="pic 15.jpg" alt="Additional Image 4">
+	    <img src="pic 7.jpg" alt="Additional Image 5">
+	    <img src="pic 9.jpg" alt="Additional Image 6">
+        </div>
+    </div>
+</body>
+</html>
